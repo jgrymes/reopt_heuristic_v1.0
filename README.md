@@ -13,10 +13,12 @@ This repository contains a modular implementation of a hybrid genetic algorithm 
 ```
 reopt_heuristic/
 ├── core/               # Core models and system logic
+├── data/               # Twelves case study examples in pickled files
 ├── heuristics/         # Genetic algorithm logic
 ├── optimization/       # AMPL interface and output modules
+├── packages/           # Required due to unpickling of older files
 ├── utils/              # Helper utilities, seeding, timing
-├── model/              # AMPL export/import handlers
+├── main.py             # Source for program
 ├── requirements.txt    # Python dependencies
 ├── .gitignore          # Ignored files and folders
 ```
@@ -33,9 +35,23 @@ cd reopt_heuristic
 pip install -r requirements.txt
 ```
 
-3. **Run the main script**
+3. **Install AMPL**
+You will need to create an account and obtain a license you can then run the following commands to activate.
+
 ```bash
-python core/run_heuristic.py
+# Install Python API for AMPL:
+$ python -m pip install amplpy --upgrade
+
+# Install solver modules:
+$ python -m amplpy.modules install highs gurobi
+
+# Activate your license (e.g., free ampl.com/ce or ampl.com/courses licenses):
+$ python -m amplpy.modules activate <your-license-uuid>
+```
+
+4. **Run the main script**
+```bash
+python main.py
 ```
 
 ## Example Usage
@@ -52,11 +68,8 @@ best_solution = run_heur(model, num_iter=30, pop_size=25, trial=1, selection="to
 - Python 3.8+
 - AMPL (with Gurobi or GLPK solver)
 
-## License
-MIT License (add actual license if needed)
-
 ## Contributors
 Developed by Jamie Grymes and collaborators.
 
 ## Acknowledgments
-This work was supported by research into hybrid energy systems and military applications of optimization. Special thanks to contributors from West Point and OptTek Systems.
+This work was supported by research into hybrid energy systems with a special thanks to Dr. Alexander Zolan, Dr Alexxandra Newman, and Dr. Dinesh Mehta along with support from the National Renewable Energy Labratory
